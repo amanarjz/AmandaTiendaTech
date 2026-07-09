@@ -1,5 +1,7 @@
 package com.TiendaTech.demo;
 
+//Trabajo en clase Amanda
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
