@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.TiendaTech.demo.controller;
-
 
 import com.TiendaTech.demo.domain.Producto;
 import com.TiendaTech.demo.service.CategoriaService;
@@ -35,8 +30,6 @@ public class ProductoController {
         this.categoriaService = categoriaService;
         this.messageSource = messageSource;
     }
-
-    
 
     @GetMapping("/listado")
     public String listado(Model model) {
@@ -85,8 +78,40 @@ public class ProductoController {
             return "redirect:/producto/listado";
         }
         model.addAttribute("producto", productoOpt.get());
-         var categorias = categoriaService.getCategorias(true);
+        var categorias = categoriaService.getCategorias(true);
         model.addAttribute("categorias", categorias);
         return "/producto/modifica";
     }
+
+    @PostMapping("/consultaDerivada")
+    public String consultaDerivada(@RequestParam() double precioInf,
+            @RequestParam() double precioSup, Model model) {
+        var lista = productoService.consultaDerivada(precioInf, precioSup);
+        model.addAttribute("productos", lista);
+        model.addAttribute("precioInf", precioInf);
+        model.addAttribute("precioSup", precioSup);
+        return "/consultas/listado";
+    }
+
+    @PostMapping("/consultaJPQL")
+    public String consultaJPQL(@RequestParam() double precioInf,
+            @RequestParam() double precioSup,
+            Model model) {
+        var productos = productoService.consultaJPQL(precioInf, precioSup);
+        model.addAttribute("productos", productos);
+        model.addAttribute("precioInf", precioInf);
+        model.addAttribute("precioSup", precioSup);
+        return "/consultas/listado";
+    }
+
+    @PostMapping("/consultaSQL")
+    public String consultaSQL(@RequestParam() double precioInf,
+            @RequestParam() double precioSup, Model model) {
+        var lista = productoService.consultaSQL(precioInf, precioSup);
+        model.addAttribute("productos", lista);
+        model.addAttribute("precioInf", precioInf);
+        model.addAttribute("precioSup", precioSup);
+        return "/consultas/listado";
+    }
+
 }

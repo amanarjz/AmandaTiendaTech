@@ -17,7 +17,6 @@ import lombok.Data;
 @Table(name = "categoria")
 public class Categoria implements Serializable {
 
-    // Se recomienda añadir un serialVersionUID
     private static final long serialVersionUID = 1L;
 
     @Id
